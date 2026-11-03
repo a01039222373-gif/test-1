@@ -1,0 +1,50 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: #111827;
+  background: #f9fafb;
+}
+
+.page { display: flex; flex-direction: column; height: 100dvh; }
+
+.bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  padding: 12px 16px; background: #fff; border-bottom: 1px solid #e5e7eb;
+}
+.bar h1 { font-size: 18px; margin: 0; }
+.search { display: flex; gap: 8px; flex: 1; min-width: 260px; }
+.search input {
+  flex: 1; padding: 10px 12px; font-size: 15px;
+  border: 1px solid #d1d5db; border-radius: 8px;
+}
+.search button {
+  padding: 10px 16px; font-size: 15px; border: 0; border-radius: 8px;
+  background: #2563eb; color: #fff; cursor: pointer;
+}
+.search button:disabled { background: #93c5fd; cursor: wait; }
+
+.info { padding: 6px 16px; font-size: 14px; background: #fff; border-bottom: 1px solid #e5e7eb; }
+.info p { margin: 4px 0; }
+.error { color: #b91c1c; }
+.warn { color: #92400e; }
+.legend { display: flex; align-items: center; gap: 6px; color: #4b5563; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-left: 8px; }
+.dot-none { background: #3b82f6; border: 2px solid #1d4ed8; }
+.dot-yes { background: #3b82f6; border: 3px solid #39ff14; box-shadow: 0 0 6px #39ff14; }
+.dot-no { background: #9ca3af; border: 2px solid #6b7280; }
+
+.map { flex: 1; min-height: 300px; }
+
+/* 비플페이 가능 마커: 형광 테두리 + 빛 번짐 */
+.leaflet-interactive.neon { filter: drop-shadow(0 0 4px #39ff14) drop-shadow(0 0 8px #39ff14); }
+
+.popup { min-width: 180px; font-size: 14px; }
+.popup-meta { color: #6b7280; font-size: 12px; margin: 2px 0 6px; }
+.popup-state { margin-bottom: 8px; }
+.popup-buttons { display: flex; gap: 6px; }
+.popup-buttons button {
+  flex: 1; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 13px;
+}
+.btn-yes { background: #ecfccb; border: 2px solid #39ff14; }
+.btn-no { background: #f3f4f6; border: 1px solid #9ca3af; }
