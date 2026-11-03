@@ -15,7 +15,7 @@ body {
 .bar h1 { font-size: 18px; margin: 0; }
 .search { display: flex; gap: 8px; flex: 1; min-width: 260px; }
 .search input {
-  flex: 1; padding: 10px 12px; font-size: 15px;
+  flex: 1; min-width: 0; padding: 10px 12px; font-size: 15px;
   border: 1px solid #d1d5db; border-radius: 8px;
 }
 .search button {
@@ -39,7 +39,11 @@ body {
 /* 비플페이 가능 마커: 형광 테두리 + 빛 번짐 */
 .leaflet-interactive.neon { filter: drop-shadow(0 0 4px #39ff14) drop-shadow(0 0 8px #39ff14); }
 
-.popup { min-width: 180px; font-size: 14px; }
+.popup { min-width: 200px; font-size: 14px; }
+.popup-head { font-weight: 600; margin-bottom: 6px; }
+.popup-item + .popup-item { border-top: 1px solid #e5e7eb; margin-top: 8px; padding-top: 8px; }
+.popup-item.status-yes { border-left: 4px solid #39ff14; padding-left: 6px; }
+.popup-item.status-no { border-left: 4px solid #9ca3af; padding-left: 6px; }
 .popup-meta { color: #6b7280; font-size: 12px; margin: 2px 0 6px; }
 .popup-state { margin-bottom: 8px; }
 .popup-buttons { display: flex; gap: 6px; }

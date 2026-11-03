@@ -57,10 +57,12 @@ test-1/
 "역삼동 테헤란로 맛집"
    │ parseQuery (Gemini, 실패 시 규칙)
    ▼
-{ city: "", region: "역삼동", road: "테헤란로" }
-   │ findRegion: Nominatim polygon_geojson
+{ city: "강남구", region: "역삼동", road: "테헤란로", dongs: ["역삼1동", "역삼2동"] }
+   │ findRegion: Nominatim polygon_geojson (행정구역·지명 결과만, 같은 구 우선)
+   │   - 동 경계가 없으면(예: 성수동) dongs의 행정동 경계를 각각 찾아 합침
+   │   - 그래도 없으면 지명 중심점 반경 500m 원
    ▼
-역삼동 경계 폴리곤 (경계 없는 지명은 반경 500m 원)
+역삼동 경계 폴리곤
    │ narrowToRoad: 경계 bbox 안의 테헤란로 구간 → 60m 버퍼 → 경계와 교집합
    ▼
 구획 폴리곤
@@ -106,6 +108,14 @@ Supabase bipple_status (restaurant_id 기본키 → 마지막 응답만 남음)
 
 권한(RLS): 누구나 읽기·추가·수정 가능, 삭제 불가.
 
+### 마커 묶음
+
+같은 건물의 업소는 좌표가 같아서, 위치별로 묶어 마커 하나로 그려요. 팝업에는 그 위치의 식당 목록이 나오고 식당마다 버튼이 있어요.
+
+- 묶음 안에 가능이 하나라도 있으면 형광 테두리
+- 전부 불가능이면 회색
+- 그 밖에는 미확인(파랑)
+
 ### 마커 스타일
 
 | 상태 | 테두리 | 채움 | 비고 |
@@ -119,10 +129,10 @@ Supabase bipple_status (restaurant_id 기본키 → 마지막 응답만 남음)
 | 서비스 | 용도 | 키 | 비고 |
 | --- | --- | --- | --- |
 | OpenStreetMap 타일 | 지도 배경 | 없음 | 출처 표기 필요 |
-| Nominatim | 지역 경계, 도로 구간 | 없음 | 초당 1회 수준의 가벼운 사용만 허용 |
+| Nominatim | 지역 경계, 도로 구간 | 없음 | 초당 1회 제한, 코드에서 1.1초 간격으로 호출 |
 | 공공데이터포털 상가정보 | 식당 목록 | `DATA_GO_KR_SERVICE_KEY` | Decoding 키 사용 |
 | Overpass | 대체 식당 데이터 | 없음 | 공개 서버가 자주 붐빔, 20초 제한 |
-| Gemini | 검색어 해석 | `GEMINI_API_KEY` | 모델은 `GEMINI_MODEL`로 변경 |
+| Gemini | 검색어 해석, 행정동 목록 | `GEMINI_API_KEY` | 기본 모델 `gemini-3.5-flash-lite`, 10초 넘으면 규칙 기반으로 대체 |
 | Supabase | 표시 저장·실시간 공유 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon 키는 공개돼도 되는 키 |
 
 ## 설계상 한계

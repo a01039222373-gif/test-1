@@ -11,7 +11,11 @@ export async function GET(request) {
 
   try {
     const parsed = await parseQuery(q);
-    const region = await findRegion(parsed.city, parsed.region || (parsed.road ? "" : q));
+    const region = await findRegion(
+      parsed.city,
+      parsed.region || (parsed.road ? "" : q),
+      parsed.dongs
+    );
     const area = parsed.road ? await narrowToRoad(region, parsed.road) : region;
     assertAreaSize(area);
 
